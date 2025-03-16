@@ -1,6 +1,6 @@
 # Miscellaneous
 *.class
-<<<<<<< HEAD
+ HEAD
 *.lock
 *.log
 *.pyc
@@ -160,4 +160,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
->>>>>>> 91dba48 (Initial commit or adding project files)
+ 91dba48 (Initial commit or adding project files)
