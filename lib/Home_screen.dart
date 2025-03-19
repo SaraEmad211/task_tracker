@@ -1,20 +1,23 @@
+// ignore: file_names
+// ignore_for_file: file_names, duplicate_ignore
+
 import 'package:flutter/material.dart';
-import 'package:to_do_list/Sign_In.dart';
+import 'package:to_do_list/Sign_in.dart';
 import 'package:to_do_list/To_Do.dart';
 
-class homescreen extends StatefulWidget {
+class Homescreen extends StatefulWidget {
 
  final String username;
   final String email;
   final String phone;
 
-  const homescreen({super.key, required this.username, required this.email,required this.phone});
+  const Homescreen({super.key, required this.username, required this.email,required this.phone});
 
 
   @override
-  State<homescreen> createState() => _homescreenState();
+  State<Homescreen> createState() => _HomescreenState();
 }
-class _homescreenState extends State<homescreen> {
+class _HomescreenState extends State<Homescreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); 
 
   @override
@@ -28,14 +31,14 @@ class _homescreenState extends State<homescreen> {
       "description": "Group discussion for \n the new product.",
       "time": "10:00 AM",
       "progress": 0.48,
-      "color": Color(0xFF6072FF)
+      "color": const Color(0xFF6072FF)
     },
     {
       "title": "UI Design 🎨",
       "description": "Make a homepage for \n the app.",
       "time": "11:00 AM",
       "progress": 0.75,
-      "color": Color(0xFFE65974)
+      "color": const Color(0xFFE65974)
     },
     {
       "title": "Coding Session 💻",
@@ -63,7 +66,7 @@ class _homescreenState extends State<homescreen> {
       ),
         Padding(
       padding: EdgeInsets.only(right: screenWidth*0.2),
-      child: customText("you have 49 tasks \n this month 👍", 30, color:Color.fromARGB(255, 34, 36, 95),isBold: true),
+      child: customText("you have 49 tasks \n this month 👍", 30, color:const Color.fromARGB(255, 34, 36, 95),isBold: true),
         )  
       ,
       search_box(screenHeight, screenWidth)
@@ -77,9 +80,9 @@ class _homescreenState extends State<homescreen> {
         padding:  EdgeInsets.only(top:screenHeight*0.03,left: screenWidth*0.08),
         child: Row(
       children: [
-        customText("Today's Tasks", 30,color:Color.fromARGB(255, 34, 36, 95),isBold: true),
+        customText("Today's Tasks", 30,color:const Color.fromARGB(255, 34, 36, 95),isBold: true),
         SizedBox(width: screenWidth*0.2,),
-        customText("See All", 20,color: Color.fromARGB(255, 154, 154, 154))
+        customText("See All", 20,color: const Color.fromARGB(255, 154, 154, 154))
       ],
         ),
       ),
@@ -102,7 +105,7 @@ class _homescreenState extends State<homescreen> {
                       ),
                     );
                   },
-            separatorBuilder: (context, index) => SizedBox(width: 10), 
+            separatorBuilder: (context, index) => const SizedBox(width: 10), 
           itemCount: tasks.length),
         ),
       )
@@ -118,6 +121,7 @@ endDrawer:Drawer_profile()
     );
   }
 
+  // ignore: non_constant_identifier_names
   Drawer Drawer_profile() {
        final screenWidth = MediaQuery.of(context).size.width;
     final   screenHeight= MediaQuery.of(context).size.height;
@@ -129,7 +133,7 @@ child: Column(
  Container(
           height: 230, 
           width: double.infinity, 
-          color: Color.fromARGB(255, 200, 186, 237),
+          color: const Color.fromARGB(255, 200, 186, 237),
           alignment: Alignment.center,
           child: Padding(
             padding:  EdgeInsets.only(left: screenWidth*0.05,top: screenHeight*0.05),
@@ -137,15 +141,15 @@ child: Column(
               children: [
                 Row(
                   children: [
-                    customText("${widget.username}", 30,isBold: true),
+                    customText(widget.username, 30,isBold: true),
                     SizedBox(width: screenWidth*0.18,),
-                    Icon(Icons.face_2,size: 30,)
+                    const Icon(Icons.face_2,size: 30,)
                   ],
                 ),
-                customText("📧Email:",color: Color(0xFF185ABD) ,25,isBold: true),
-                              customText("${widget.email}", 20),
+                customText("📧Email:",color: const Color(0xFF185ABD) ,25,isBold: true),
+                              customText(widget.email, 20),
             
-                              customText("📞Number:",color: Color(0xFF185ABD) ,25,isBold: true),
+                              customText("📞Number:",color: const Color(0xFF185ABD) ,25,isBold: true),
                         customText("+2${widget.phone}", 20),
             
             
@@ -158,7 +162,7 @@ child: Column(
        onTap: () =>
 Navigator.pushReplacement(
   context,
-  MaterialPageRoute(builder: (context) => Sign_In()),
+  MaterialPageRoute(builder: (context) => const Sign_in()),
 ),
          )
 
@@ -169,10 +173,11 @@ Navigator.pushReplacement(
   }
 
 
+// ignore: non_constant_identifier_names
 Row top_icons(double screenWidth) {
     return Row(children: [
   SizedBox(width: screenWidth*0.08,),
-    CircleAvatar(backgroundColor: Color.fromARGB(255, 245, 201, 201),
+    const CircleAvatar(backgroundColor: Color.fromARGB(255, 245, 201, 201),
       maxRadius:30,child: Icon(Icons.list_sharp),)
     ,    SizedBox(width: screenWidth*0.6,),
      CircleAvatar(
@@ -184,7 +189,7 @@ Row top_icons(double screenWidth) {
     onTap: () {
       _scaffoldKey.currentState?.openEndDrawer();
     },
-     child: Icon(Icons.face),
+     child: const Icon(Icons.face),
       ))
   
 
@@ -199,6 +204,7 @@ Row top_icons(double screenWidth) {
 
  
 
+  // ignore: non_constant_identifier_names
   Padding search_box(double screenHeight, double screenWidth) {
     return Padding(
 padding:EdgeInsets.only(top: screenHeight*.05),
@@ -206,13 +212,14 @@ child: SizedBox(
      
       width: screenWidth*0.9,
       child: TextField(
-        decoration: InputDecoration(  prefixIcon: Icon(Icons.search),labelText: "Search a task ...",border:OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none,),filled: true, fillColor: Colors.white,
+        decoration: InputDecoration(  prefixIcon: const Icon(Icons.search),labelText: "Search a task ...",border:OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none,),filled: true, fillColor: Colors.white,
        ),
       ),
     ),
 );
   }
 
+ // ignore: non_constant_identifier_names
  Padding row_operations(double screenWidth) {
     return Padding(
 padding: EdgeInsets.only(left: screenWidth*0.09),
@@ -241,6 +248,7 @@ child: SingleChildScrollView(
   }
 
 
+  // ignore: non_constant_identifier_names
   Stack stack(String TEXT,double sizefont,int boredercolour,int Colour,IconData  iconn) {
     return Stack(
     alignment: Alignment.topCenter,
@@ -249,12 +257,12 @@ child: SingleChildScrollView(
         width: 100,
         height: 150,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 236, 233, 244),
+          color: const Color.fromARGB(255, 236, 233, 244),
           borderRadius: BorderRadius.circular(50),
         ),
       ),
       Padding(
-        padding:  EdgeInsets.only(top:20.0),
+        padding:  const EdgeInsets.only(top:20.0),
         child: Column(
           children: [
             Container(
@@ -273,7 +281,7 @@ child: SingleChildScrollView(
                 child: Icon(iconn, size: 50,color: Color(boredercolour),),
               ),
             ),
-SizedBox(height: 10,),
+const SizedBox(height: 10,),
             Text(TEXT,style: TextStyle(fontSize: sizefont,fontWeight: FontWeight.bold),),
 
 
@@ -298,6 +306,7 @@ Widget customText(String text, double size, {Color color = Colors.black,bool isB
   );
 }
 
+// ignore: non_constant_identifier_names
 Widget TaskCard({
   required String title,
   required String description,
@@ -307,7 +316,7 @@ Widget TaskCard({
 }) {
   return Expanded(
     child: Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: color,
@@ -316,13 +325,13 @@ Widget TaskCard({
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           customText(title, 25, color: Colors.white,isBold: true),
-          SizedBox(height: 5), 
+          const SizedBox(height: 5), 
           Wrap(
             children: [
             customText(description,20,color: Colors.white)
             ],
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           customText(time, 20, color: Colors.white,isBold: true),
         ],
       ),

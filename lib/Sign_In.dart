@@ -1,8 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:to_do_list/homescreen.dart';
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore: file_names
+// ignore: file_names
+// ignore_for_file: file_names, duplicate_ignore, camel_case_types
 
-class Sign_In extends StatelessWidget {
-  const Sign_In({super.key});
+import 'package:flutter/material.dart';
+import 'package:to_do_list/Home_screen.dart';
+
+class Sign_in extends StatelessWidget {
+  const Sign_in({super.key});
 
   static final TextEditingController nameController = TextEditingController();
   static final TextEditingController emailController = TextEditingController();
@@ -79,7 +85,7 @@ class Sign_In extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => homescreen(
+                            builder: (context) => Homescreen(
                               username: nameController.text,
                               email: emailController.text,
                               phone:phoneController.text,
@@ -255,9 +261,9 @@ class TitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text(
           "Create account",
           style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 22),

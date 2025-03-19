@@ -1,5 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:to_do_list/homescreen.dart';
 
 class To_Do extends StatelessWidget {
   final List<Task> tasks=[
@@ -14,7 +15,7 @@ class To_Do extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150),
+        preferredSize: const Size.fromHeight(150),
         child: Container(
           padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
           color: Colors.white,
@@ -27,24 +28,24 @@ class To_Do extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back, size: 24, color: Colors.black),
+                      icon: const Icon(Icons.arrow_back, size: 24, color: Colors.black),
                       onPressed: () {Navigator.pop(context);},
                     ),
-                    Spacer(),
+                    const Spacer(),
                     ElevatedButton.icon(
                       onPressed: () {/*to add page */},
-                      icon: Icon(Icons.add, color: Colors.white),
-                      label: Text("Add Task", style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.add, color: Colors.white),
+                      label: const Text("Add Task", style: TextStyle(color: Colors.white)),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: DateSelector(),
@@ -54,7 +55,7 @@ class To_Do extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: ListView.builder(
           itemCount: tasks.length,
           itemBuilder: (context, index) {
@@ -120,7 +121,7 @@ class _DateSelectorState extends State<DateSelector> {
                     Container(
                       width: 3,
                       height: 3,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.blue,
                         shape: BoxShape.circle,
                       ),
@@ -162,10 +163,10 @@ class TaskItem extends StatelessWidget{
     Container(width: 2,height: 50,color: Colors.grey),
   ],
   ),
-  SizedBox(width: 16),
+  const SizedBox(width: 16),
   Expanded(child: Container(
-  padding: EdgeInsets.all(12),
-  margin: EdgeInsets.only(bottom: 16),
+  padding: const EdgeInsets.all(12),
+  margin: const EdgeInsets.only(bottom: 16),
   decoration: BoxDecoration(
   color: task.color.withOpacity(0.2),
   borderRadius: BorderRadius.circular(25),
@@ -177,11 +178,11 @@ class TaskItem extends StatelessWidget{
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(task.title,style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: task.color)),
-        Text(task.time,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
+        Text(task.time,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
       ],
     ),
-    SizedBox(height: 8),
-    Text(task.description,style: TextStyle(fontSize: 20,color: Colors.black54)),
+    const SizedBox(height: 8),
+    Text(task.description,style: const TextStyle(fontSize: 20,color: Colors.black54)),
   ],
   ),
   ),
