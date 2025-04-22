@@ -1,8 +1,3 @@
-// ignore: duplicate_ignore
-// ignore: file_names
-// ignore: file_names
-// ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:to_do_list/Home_screen.dart';
@@ -246,7 +241,7 @@ class Sign_in extends StatelessWidget {
           InkWell(
             onTap: () {},
             child: const Text(
-              " Try to sign in",
+              " Try to log in",
               style: TextStyle(color: Colors.blue, fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),

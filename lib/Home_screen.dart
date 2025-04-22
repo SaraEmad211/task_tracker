@@ -2,9 +2,11 @@
 // ignore_for_file: file_names, duplicate_ignore
 
 import 'package:flutter/material.dart';
+import 'package:to_do_list/My_search_delegate.dart';
 import 'package:to_do_list/Sign_in.dart';
 import 'package:to_do_list/To_Do.dart';
-
+import 'global functions/customText.dart';
+import 'global functions/TaskCard.dart';
 class Homescreen extends StatefulWidget {
 
  final String username;
@@ -52,66 +54,87 @@ class _HomescreenState extends State<Homescreen> {
     return  Scaffold(
         key: _scaffoldKey,
       body: 
-    SingleChildScrollView(
-      child: Column(
-        children: [
-        SizedBox(height:screenHeight*0.07,
-      ),
-         top_icons(screenWidth),
+    SafeArea(
+      child: Expanded(
+        child: Column(
+          children: [
+            
+        //   SizedBox(height:screenHeight*0.07,
+        // ),
         
-      
-      Padding(
-      padding:  EdgeInsets.only(right: screenWidth*0.2,top: screenHeight*.05),
-        child: customText("Good Morning, ${widget.username} !", 24),
-      ),
+           top_icons(screenWidth),
+          SizedBox(height:screenHeight*0.04,
+         ),
         Padding(
-      padding: EdgeInsets.only(right: screenWidth*0.2),
-      child: customText("you have 49 tasks \n this month 👍", 30, color:const Color.fromARGB(255, 34, 36, 95),isBold: true),
-        )  
-      ,
-      search_box(screenHeight, screenWidth)
-      ,
-      SizedBox(
-        height: screenHeight*0.05,
-      )
-      ,
-      row_operations(screenWidth),
-      Padding(
-        padding:  EdgeInsets.only(top:screenHeight*0.03,left: screenWidth*0.08),
-        child: Row(
-      children: [
-        customText("Today's Tasks", 30,color:const Color.fromARGB(255, 34, 36, 95),isBold: true),
-        SizedBox(width: screenWidth*0.2,),
-        customText("See All", 20,color: const Color.fromARGB(255, 154, 154, 154))
-      ],
+          padding: EdgeInsets.only(right: screenWidth*0.1),
+          child: RichText(text: TextSpan(
+            children: [
+              TextSpan(text: "Good Morning, ${widget.username} !",style: TextStyle(color: Colors.black,fontSize: 24))
+            ]
+          ),),
         ),
-      ),
-      
-      SizedBox(
-            height: screenHeight*0.2,
-      
-        child: Padding(
-        padding: const EdgeInsets.only(left: 25.0),
-          child: ListView.separated(
-                     scrollDirection: Axis.horizontal,
-           itemBuilder: (context, index) {
-                    return Expanded(
-                      child: TaskCard(
-                        title: tasks[index]["title"],
-                        description: tasks[index]["description"],
-                        time: tasks[index]["time"],
-                        progress: tasks[index]["progress"],
-                        color: tasks[index]["color"],
-                      ),
-                    );
-                  },
-            separatorBuilder: (context, index) => const SizedBox(width: 10), 
-          itemCount: tasks.length),
+        Padding(
+          padding: EdgeInsets.only(left: screenWidth*0.05),
+          child: Flexible(
+            child: RichText(text: TextSpan(
+              children: [
+                TextSpan(text: "you have ",style: TextStyle(color:const Color.fromARGB(255, 34, 36, 95),fontSize: 30,fontWeight: FontWeight.bold)),
+                TextSpan(text: "49 tasks",style: TextStyle(color:const Color.fromARGB(255, 63, 69, 237),fontSize: 30,fontWeight: FontWeight.bold)),
+                TextSpan(text: " this month 👍",style: TextStyle(color:const Color.fromARGB(255, 34, 36, 95),fontSize: 30,fontWeight: FontWeight.bold))
+
+
+              ]
+            ),),
+          ),
         ),
-      )
-      
-      ],
-      
+        GestureDetector(
+  onTap: () {
+    showSearch(context: context, delegate: MySearchDelegate(tasks,screenHeight,screenWidth));
+  },child: search_box(screenHeight, screenWidth),),
+          
+        // SizedBox(
+        //   height: screenHeight*0.05,
+        // )
+        //,
+        row_operations(screenWidth),
+        Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+          customText("Today's Tasks", 30,color:const Color.fromARGB(255, 34, 36, 95),isBold: true),
+          SizedBox(width: screenWidth*0.2,),
+          customText("See All", 20,color: const Color.fromARGB(255, 154, 154, 154))
+                  ],
+          ),
+        ),
+        
+        Flexible(
+          child: SizedBox(
+                height: screenHeight*0.25,
+          
+            child: Padding(
+            padding: const EdgeInsets.only(left: 25.0),
+              child: ListView.separated(
+                         scrollDirection: Axis.horizontal,
+               itemBuilder: (context, index) {
+                        return TaskCard(
+                          title: tasks[index]["title"],
+                          description: tasks[index]["description"],
+                          time: tasks[index]["time"],
+                          progress: tasks[index]["progress"],
+                          color: tasks[index]["color"],
+                          screenWidth: screenWidth
+                        );
+                      },
+                separatorBuilder: (context, index) => const SizedBox(width: 10), 
+              itemCount: tasks.length),
+            ),
+          ),
+        )
+        
+        ],
+        
+        ),
       ),
     )
    
@@ -136,7 +159,7 @@ child: Column(
           color: const Color.fromARGB(255, 200, 186, 237),
           alignment: Alignment.center,
           child: Padding(
-            padding:  EdgeInsets.only(left: screenWidth*0.05,top: screenHeight*0.05),
+            padding:  EdgeInsets.only(left: screenWidth*0.02,top: screenHeight*0.05),
             child: Column(
               children: [
                 Row(
@@ -179,7 +202,7 @@ Row top_icons(double screenWidth) {
   SizedBox(width: screenWidth*0.08,),
     const CircleAvatar(backgroundColor: Color.fromARGB(255, 245, 201, 201),
       maxRadius:30,child: Icon(Icons.list_sharp),)
-    ,    SizedBox(width: screenWidth*0.6,),
+    ,    SizedBox(width: screenWidth*0.5,),
      CircleAvatar(
 
         radius: 30,
@@ -204,44 +227,70 @@ Row top_icons(double screenWidth) {
 
  
 
-  // ignore: non_constant_identifier_names
-  Padding search_box(double screenHeight, double screenWidth) {
-    return Padding(
-padding:EdgeInsets.only(top: screenHeight*.05),
-child: SizedBox(
+//   Padding search_box(double screenHeight, double screenWidth) {
+//     return Padding(
+// padding:EdgeInsets.only(top: screenHeight*.05),
+// child: SizedBox(
      
-      width: screenWidth*0.9,
-      child: TextField(
-        decoration: InputDecoration(  prefixIcon: const Icon(Icons.search),labelText: "Search a task ...",border:OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none,),filled: true, fillColor: Colors.white,
-       ),
-      ),
+//       width: screenWidth*0.9,
+//       child: TextField(
+//         decoration: InputDecoration(  prefixIcon: const Icon(Icons.search),labelText: "Search a task ...",border:OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none,),filled: true, fillColor: Colors.white,
+//        ),
+//       ),
+//     ),
+// );
+//   }
+ Container search_box(double screenHeight, double screenWidth) {
+    return 
+   Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
     ),
-);
+    child: Row(
+      children: const [
+        Icon(Icons.search, color: Colors.grey),
+        SizedBox(width: 10),
+        Text(
+          "Search a task ...",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+          ),
+        ),
+      ],
+    ),
+  
+   );
   }
 
  // ignore: non_constant_identifier_names
- Padding row_operations(double screenWidth) {
-    return Padding(
-padding: EdgeInsets.only(left: screenWidth*0.09),
-child: SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-  child: Row(
+ Center row_operations(double screenWidth) {
+    return Center(
+child: SafeArea(
+  child:Row(
+     mainAxisSize: MainAxisSize.min,
     children: [
-      InkWell(child: stack("To_Do",20,0xFFDB516A,0xFFFBE3EB,Icons.assignment),
-      onTap: () =>
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => To_Do()),
-  )),
+
+      Flexible(
+        child: InkWell(child: stack("To_Do",25,0xFFDB516A,0xFFFBE3EB,Icons.assignment),
+        onTap: () =>
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => To_Do()),
+          )),
+      ),
       SizedBox(width: screenWidth*0.05,),
-      stack("Progress",20,0xFFF3C829,0xFFFEFAE6,Icons.sync),
+      Flexible(child: stack("Progress",20,0xFFF3C829,0xFFFEFAE6,Icons.sync)),
             SizedBox(width: screenWidth*0.05,),
   
-      stack("Done",20,0xFF0DC080,0xFFE0FFF5,Icons.assignment_turned_in),
+      Flexible(child: stack("Done",25,0xFF0DC080,0xFFE0FFF5,Icons.assignment_turned_in)),
   
   
     ],
-  ),
+  )
+ 
 )
 ,
 );
@@ -260,81 +309,41 @@ child: SingleChildScrollView(
           color: const Color.fromARGB(255, 236, 233, 244),
           borderRadius: BorderRadius.circular(50),
         ),
-      ),
-      Padding(
-        padding:  const EdgeInsets.only(top:20.0),
-        child: Column(
-          children: [
-            Container(
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Color(boredercolour),
-                  width: 3,
+        child:Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 70,
+                height: 70,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Color(boredercolour),
+                    width: 3,
+                  ),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Color(Colour),
+                  radius: 45,
+                  child: Icon(iconn, size: 50,color: Color(boredercolour),),
                 ),
               ),
-              child: CircleAvatar(
-                backgroundColor: Color(Colour),
-                radius: 45,
-                child: Icon(iconn, size: 50,color: Color(boredercolour),),
-              ),
-            ),
-const SizedBox(height: 10,),
-            Text(TEXT,style: TextStyle(fontSize: sizefont,fontWeight: FontWeight.bold),),
-
-
-          ],
+          const SizedBox(height: 10,),
+              Text(TEXT,style: TextStyle(fontSize: sizefont,fontWeight: FontWeight.bold),maxLines: 1,  
+                  overflow: TextOverflow.ellipsis, 
+                  softWrap: true,),
+          
+          
+            ],
+          ),
         ),
       ),
+   
     ],
     );
   }
 }
 
-Widget customText(String text, double size, {Color color = Colors.black,bool isBold = false}) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontSize: size,
-      color: color,
-      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-      
-    ),
-     
-  );
-}
 
 // ignore: non_constant_identifier_names
-Widget TaskCard({
-  required String title,
-  required String description,
-  required String time,
-  required double progress,
-  required Color color,
-}) {
-  return Expanded(
-    child: Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: color,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          customText(title, 25, color: Colors.white,isBold: true),
-          const SizedBox(height: 5), 
-          Wrap(
-            children: [
-            customText(description,20,color: Colors.white)
-            ],
-          ),
-          const SizedBox(height: 5),
-          customText(time, 20, color: Colors.white,isBold: true),
-        ],
-      ),
-    ),
-  );
-}
